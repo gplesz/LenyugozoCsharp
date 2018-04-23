@@ -54,9 +54,20 @@ Egy [ingyenes tanfolyam](https://app.netacademia.hu/Tanfolyam/rpifree-bevezetes-
 
 ## Saját alkalmazás készítése
 
+### Első működő verzió (csak válaszol)
+
 ```
 md rpi.server
 cd rpi.server
 dotnet new webapi
 ```
+### Csomagolás Docker segítségével
+- A Dockerfile-ban leírjuk, hogy hogy épül fel a csomag
+- build.bat-ban elkészítjük a "programot", ami előállítja és felküldi a docker hub-ra az egészet
+- készítünk egy Docker Hub repo-t, ahova kerül a docker csomag, és ahonnan lehúzzuk a Raspberry-re ([ezaz](https://hub.docker.com/r/gplesz/rpi.server/)
 
+# ajánlott tanfolyamok
+- [Programozási alapismeretek C# nyelven](https://app.netacademia.hu/Tanfolyam/CsharpFree-programozasi-alapismeretek-c-nyelven)
+- [ezen az ingyenes tanfolyamon](https://app.netacademia.hu/Tanfolyam/ELAI-I-az-elektronika-alapismeretei-i)
+- Egy [ingyenes tanfolyam](https://app.netacademia.hu/Tanfolyam/rpifree-bevezetes-a-raspberry-pi-es-a-beagyazott-szoftverfejlesztes-kepzesbe) a Raspberry lelkivilágáról.
+- [Hálózati alapismeretek](https://app.netacademia.hu/Tanfolyam/HA-halozati-alapismeretek)
