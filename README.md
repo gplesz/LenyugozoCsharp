@@ -29,6 +29,10 @@ A NetAcademia lenyűgöző C# tanfolyam kiegészítő kódtára
 
 - zenmap: ezzel keressük meg a Raspberry-nket a hálózatunkon [innen](https://sourceforge.net/projects/nmap.mirror/?source=typ_redirect).
 
+- Visual Studio Extensions:
+  C#, Docker
+  (Baloldalon az alsó ikon, és a keresőmezőbe: C#/Docker, **Install** gomb majd **Reload** gomb)
+
 # Tematika
 
 ## Raspberry PI
@@ -50,4 +54,9 @@ Egy [ingyenes tanfolyam](https://app.netacademia.hu/Tanfolyam/rpifree-bevezetes-
 
 ## Saját alkalmazás készítése
 
+```
+md rpi.server
+cd rpi.server
+dotnet new webapi
+```
 
