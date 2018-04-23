@@ -6,6 +6,7 @@ A NetAcademia lenyűgöző C# tanfolyam kiegészítő kódtára
   - Saját csevegőrobot készítése saját gépen (botframework-simulator használatával)
   - csevegőrobot felhőbe telepítése (Azure) és összekötjük a Skype és a Facebook Messenger platformokkal.
   
+  facebook: [dotnet cápák](https://www.facebook.com/groups/dotnetcapak)
 
 # Telepítések
 
@@ -98,12 +99,17 @@ ahol a mi címünk: 192.168.1.128
 sudo docker pull gplesz/rpi.server
 sudo docker run -p 5000:5000 gplesz/rpi.server
 ```
-
-
 vágólapról odamásolni a putty konzolba jobb egér kattintással lehet
+
+### LED villogtatás
+
+Egy [nuget csomagot](https://www.nuget.org/packages/Unosquare.Raspberry.IO/) használunk:
+```
+dotnet add package Unosquare.Raspberry.IO --version 0.14.0
+```
 
 # ajánlott tanfolyamok
 - [Programozási alapismeretek C# nyelven](https://app.netacademia.hu/Tanfolyam/CsharpFree-programozasi-alapismeretek-c-nyelven)
-- [ezen az ingyenes tanfolyamon](https://app.netacademia.hu/Tanfolyam/ELAI-I-az-elektronika-alapismeretei-i)
-- Egy [ingyenes tanfolyam](https://app.netacademia.hu/Tanfolyam/rpifree-bevezetes-a-raspberry-pi-es-a-beagyazott-szoftverfejlesztes-kepzesbe) a Raspberry lelkivilágáról.
+- [elektronikai ismeretek](https://app.netacademia.hu/Tanfolyam/ELAI-I-az-elektronika-alapismeretei-i)
+- Egy [Raspberry bevezetés](https://app.netacademia.hu/Tanfolyam/rpifree-bevezetes-a-raspberry-pi-es-a-beagyazott-szoftverfejlesztes-kepzesbe) a Raspberry lelkivilágáról.
 - [Hálózati alapismeretek](https://app.netacademia.hu/Tanfolyam/HA-halozati-alapismeretek)
