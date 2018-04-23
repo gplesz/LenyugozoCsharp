@@ -66,6 +66,42 @@ dotnet new webapi
 - build.bat-ban elkészítjük a "programot", ami előállítja és felküldi a docker hub-ra az egészet
 - készítünk egy Docker Hub repo-t, ahova kerül a docker csomag, és ahonnan lehúzzuk a Raspberry-re ([ezaz](https://hub.docker.com/r/gplesz/rpi.server/)
 
+### Kapcsolódunk a raspberry-hez
+- ugyanazon a hálózati eszközön van, mint mi
+- az IP címünket megkeressük IPConfiggal
+  ```
+  Ethernet adapter Ethernet 2:
+
+   Connection-specific DNS Suffix  . :
+   Link-local IPv6 Address . . . . . : fe80::84af:ad94:47f1:242d%12
+   IPv4 Address. . . . . . . . . . . : 192.168.1.128
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.1.1  
+  ```
+- zenmap-pel kiadjuk a parancsot: 
+  ```
+  nmap -sn 192.168.1.128/24
+  ```
+ahol a mi címünk: 192.168.1.128
+- putty-tyal az így megszerzett címre behívunk SSH-val
+  név: pi
+  jelszó: raspberry
+
+### telepítjük a docker-t a Raspberry-re
+  ```
+  curl -sSL https://get.docker.com | sh
+  ```
+
+### telepítjük az alkalmazást
+
+```
+sudo docker pull gplesz/rpi.server
+sudo docker run -p 5000:5000 gplesz/rpi.server
+```
+
+
+vágólapról odamásolni a putty konzolba jobb egér kattintással lehet
+
 # ajánlott tanfolyamok
 - [Programozási alapismeretek C# nyelven](https://app.netacademia.hu/Tanfolyam/CsharpFree-programozasi-alapismeretek-c-nyelven)
 - [ezen az ingyenes tanfolyamon](https://app.netacademia.hu/Tanfolyam/ELAI-I-az-elektronika-alapismeretei-i)
