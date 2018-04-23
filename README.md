@@ -15,6 +15,19 @@ A NetAcademia lenyűgöző C# tanfolyam kiegészítő kódtára
 - fritzig: rajzolóprogram ([innen tudjuk letölteni](http://fritzing.org/download/))
   Válasszuk a **No Donation**-t az ingyenes letöltéshez. Letöltés után a .zip archívumot tömörítsük ki valahová, ott tudjuk majd elindítani.
 
+- DotNet környezet telepítése [innen](https://www.microsoft.com/net/download/windows)
+  Letöltjük és futtatjuk a telepítőt, alapértelmezett beállításokkal.
+  
+- Docker telepítése [innen](https://store.docker.com/editions/community/docker-ce-desktop-windows)
+ letöltjük, telepítjük.
+ **Fontos:**
+  - csak adminisztrátor felhasználóként telepítsük, 
+  - többször újraindíthatja a gépet. 
+  - HyperV-t engedélyezteti első induláskor
+
+- SSH kliens (Windows-hoz: a Putty-ot fogjuk használni, [innen letölthető](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html))
+
+- zenmap: ezzel keressük meg a Raspberry-nket a hálózatunkon [innen](https://sourceforge.net/projects/nmap.mirror/?source=typ_redirect).
 
 # Tematika
 
@@ -33,8 +46,8 @@ A Fritzing használatával kapcsolási rajzot készítünk a megvalósításhoz.
 
 ![Kapcsolási ábra](pics/kapcsolas.png)
 
+Egy [ingyenes tanfolyam](https://app.netacademia.hu/Tanfolyam/rpifree-bevezetes-a-raspberry-pi-es-a-beagyazott-szoftverfejlesztes-kepzesbe) a Raspberry lelkivilágáról.
 
-
-
+## Saját alkalmazás készítése
 
 
