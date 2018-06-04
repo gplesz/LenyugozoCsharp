@@ -179,4 +179,15 @@ Ahhoz, hogy programozási környezetünk legyen a saját gépünkön, telepítj�
 
 [Összefoglaló cikk](https://docs.microsoft.com/hu-hu/azure/bot-service/bot-service-debug-emulator?view=azure-bot-service-3.0) a rendszerről.
 
+[rövid leírás](https://hu.wikipedia.org/wiki/HTTP) a HTTP protokolról
+
+A Bot Framework szabályai:
+- a kérést POST üzenetként kapja az alkalmazásunk.
+- a válaszunknak HTTP OK kódnak kell lennie
+
+A kommunikációhoz telepítjük a [következő nuget csomagot](https://www.nuget.org/packages/Microsoft.Bot.Connector.AspNetCore):
+
+```
+dotnet add package Microsoft.Bot.Connector.AspNetCore --version 2.0.1.7
+```
 
