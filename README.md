@@ -154,7 +154,6 @@ dotnet add package Unosquare.Raspberry.IO --version 0.14.0
 |                  |
 |                  |
 +------------------+
-
 ```
 
 
@@ -175,4 +174,9 @@ Ha valakinek a Developer Certificate-et nem fogadja el a gépe, akkor ezt kell m
 ```
 dotnet dev-certs https --trust
 ```
+
+Ahhoz, hogy programozási környezetünk legyen a saját gépünkön, telepítjük a [Bot Framework Emulator](https://github.com/Microsoft/BotFramework-Emulator)-t, [innen](https://github.com/Microsoft/BotFramework-Emulator/releases).
+
+[Összefoglaló cikk](https://docs.microsoft.com/hu-hu/azure/bot-service/bot-service-debug-emulator?view=azure-bot-service-3.0) a rendszerről.
+
 
