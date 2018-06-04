@@ -120,3 +120,25 @@ dotnet add package Unosquare.Raspberry.IO --version 0.14.0
 - [elektronikai ismeretek](https://app.netacademia.hu/Tanfolyam/ELAI-I-az-elektronika-alapismeretei-i)
 - Egy [Raspberry bevezetés](https://app.netacademia.hu/Tanfolyam/rpifree-bevezetes-a-raspberry-pi-es-a-beagyazott-szoftverfejlesztes-kepzesbe) a Raspberry lelkivilágáról.
 - [Hálózati alapismeretek](https://app.netacademia.hu/Tanfolyam/HA-halozati-alapismeretek)
+
+
+## Saját csevegőrobot készítése
+
+érdemes [a legutolsó .NET Core SDK-t](https://www.microsoft.com/net/download/windows) használni.
+
+Letöltés és telepítés után használható is.
+
+```
+md bot.server
+cd bot.server
+dotnet new webapi
+```
+
+[A .NET Core és az ASP.NET Core újdonságai](https://blogs.msdn.microsoft.com/webdev/2018/02/27/asp-net-core-2-1-https-improvements/)
+
+Ha valakinek a Developer Certificate-et nem fogadja el a gépe, akkor ezt kell mondania:
+
+```
+dotnet dev-certs https --trust
+```
+
