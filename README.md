@@ -99,6 +99,13 @@ ahol a mi címünk: 192.168.1.128
 sudo docker pull gplesz/rpi.server
 sudo docker run -p 5000:5000 gplesz/rpi.server
 ```
+
+de ez a második parancs nem éri el a **gpio**-t a dockerből, így ezt egy külön paraméterrel engedélyezni kell. Vagyis, a jó alkalmazás indítás a következő:
+
+```
+sudo docker run -p 5000:5000 --device /dev/gpiomem gplesz/rpi.server
+```
+
 vágólapról odamásolni a putty konzolba jobb egér kattintással lehet
 
 ### LED villogtatás
