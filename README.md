@@ -191,3 +191,8 @@ A kommunikációhoz telepítjük a [következő nuget csomagot](https://www.nuge
 dotnet add package Microsoft.Bot.Connector.AspNetCore --version 2.0.1.7
 ```
 
+Ahhoz, hogy a csevegőrobotunkból elérjük a raspberry-n futó alkalmazást, RestApi hívást kell csinálni a [RestSharp]((http://restsharp.org/)) nevű [nuget csomaggal](https://www.nuget.org/packages/RestSharp).
+
+```
+dotnet add package RestSharp --version 106.3.0
+```
