@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Bot.Connector;
 using RestSharp;
@@ -28,23 +29,21 @@ namespace bot.server.Controllers
                 {
                     case "led fel":
                         request.AddParameter("isOn", true);
-                        var responseFel = client.Execute(request);
-                        reply = activity.CreateReply($"led fel: {userMessage}");
+                        var responseFel = client.Execute<List<string>>(request);
+                        reply = activity.CreateReply($"led fel: {string.Join(",", responseFel.Data)}");
                         break;
                     case "led le":
                         request.AddParameter("isOn", false);
-                        var responseLe = client.Execute(request);
-                        reply = activity.CreateReply($"led fel: {userMessage}");
+                        var responseLe = client.Execute<List<string>>(request);
+                        reply = activity.CreateReply($"led fel: {string.Join(",", responseLe.Data)}");
                         break;
                     default:
                         reply = activity.CreateReply($"Visszhang: {userMessage}");
                         break;
                 }
-                
 
                 //todo az rpi választ visszaküldeni
                 //ehhez értelmezni kell az rpi választ és betenni a válaszba
-
                 
                 connector.Conversations.ReplyToActivity(reply);
             }
