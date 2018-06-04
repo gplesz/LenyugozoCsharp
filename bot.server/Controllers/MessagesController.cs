@@ -10,12 +10,13 @@ namespace bot.server.Controllers
         [HttpPost]
         public OkResult Post([FromBody]Activity activity)
         {
-
-            var connector = new ConnectorClient(new Uri(activity.ServiceUrl));
-            var userMessage = activity.Text;
-            var reply = activity.CreateReply($"Visszhang: {userMessage}");
-            connector.Conversations.ReplyToActivity(reply);
-
+            if (activity.Type==ActivityTypes.Message)
+            {
+                var connector = new ConnectorClient(new Uri(activity.ServiceUrl));
+                var userMessage = activity.Text;
+                var reply = activity.CreateReply($"Visszhang: {userMessage}");
+                connector.Conversations.ReplyToActivity(reply);
+            }
             return Ok();
         }
         
