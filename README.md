@@ -230,3 +230,10 @@ LOKÁLIS HÁLÓZAT                                                              
 
 ```
 
+### Azure webalkalmazás telepítése
+Ehhez az [Azure CLI-t](https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest&viewFallbackFrom=azure-cli-latest) fogjuk használni.
+
+
+
+
+###
