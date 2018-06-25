@@ -196,3 +196,37 @@ Ahhoz, hogy a csevegőrobotunkból elérjük a raspberry-n futó alkalmazást, R
 ```
 dotnet add package RestSharp --version 106.3.0
 ```
+
+## Irány az Internet!
+
+Áttekintő ábra
+```
+INTERNET                      +--------------------------+                  +-------------------------+
+                              |                          |                  |        bot.server       |
+                              |  Azure Csevegőrobot      |                  |  Kitesszük az Internetre|
+                              |  csatornaszolgáltatás    |                  |  az azure webalkamazás  |
+                              |  (Bot channel service)   |                  |  segítségével           |
+                              |                          |                  |  (azure webapp)         |
+                              |                          |                  |                         |
+                              +--------------------------+                  +-------------------------+
+
+                                                                                  +       ^
+                                                                                  |       |
+                                                                                  |       |
+                                                                                  |       |
+                                                                                  |       |
+   +---+    +-----+    +--------+      +-------+        +-----+        +---+      |  +--+ |   +-----------+    +--------------+     +--+
+                                                                                  |       |
+LOKÁLIS HÁLÓZAT                                                                   v       +
+
+                                                                            +-------------------------+
+                                                                            |                         |
+                                                                            | Raspberry webapi        |
+                                                                            | lokális hálózat         |
+                                                                            | (192.168.0.102)         |
+                                                                            |                         |
+                                                                            |                         |
+                                                                            +-------------------------+
+
+```
+
