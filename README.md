@@ -358,5 +358,50 @@ git remote add azure https://gplesz@appbotsvcforlenyugozocsharp.scm.azurewebsite
 ```
 Ez utóbbival egy távoli végpontot hoztunk létre, aminek a segítségével felküldhetjük a forráskódot az azure-ra.
 
+Áttekintés
+```
+                                                                            ResourceGroup+AppServicePlan+WebApp
+
+INTERNET                      +--------------------------+                  +-------------------------+       +------------------------+
+                              |                          |                  |        bot.server       | BUILD |  deployment git repo   |
+                              |  Azure Cse^egőrobot      |                  |  Kitesszük az Internetre| <---+ |                        |
+                              |  csatornaszolgáltatás    |                  |  az azure webalkamazás  |       |                        |
+                              |  (Bot channel ser^ice)   |                  |  segítségé^el           |       |                        |
+                              |                          |                  |  (azure webapp)         |       |                        |
+                              |                          |                  |                         |       |                        |
+                              +--------------------------+                  +-------------------------+       +------------------------+
+
+                                                                                  +       ^                        ^
+                                                                                  |       |                        |
+                                                                                  |       |                        | PUSH
+                                                                                  |       |                        |
+                                                                                  |       |                        |
+   +---+    +-----+    +--------+      +-------+        +-----+        +---+      |  +--+ |   +-----------+    +--------------+     +--+
+                                                                                  |       |                        |
+LOKÁLIS HÁLÓZAT                                                                   v       +                        +
+                                                                                                               GIT
+                                                                            +-------------------------+        +-----------------------+
+                                                                            |                         |        |                       |
+                                                                            | Raspberry webapi        |        |                       |
+                                                                            | lokális hálózat         |        |  Forráskód            |
+                                                                            | (192.168.0.102)         |        |                       |
+                                                                            |                         |        |                       |
+                                                                            |                         |        |                       |
+                                                                            +-------------------------+        +-----------------------+
+
+```
+
+Ezek után telepítés a pshsal történik:
+
+```
+git push azure master
+```
+
+Ha nem tudom az azure-os **FIÓKHOZ** tartozó telepítő jelszót, akkor így beállíthatom:
+
+```
+az webapp deployment user set --user-name <felhasználónév> --pasword <jelszó>
+```
+
 ## kérdések
 config-zip megoldás?
