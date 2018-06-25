@@ -233,7 +233,30 @@ LOKÁLIS HÁLÓZAT                                                              
 ### Azure webalkalmazás telepítése
 Ehhez az [Azure CLI-t](https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest&viewFallbackFrom=azure-cli-latest) fogjuk használni.
 
+#### Kell egy Azure előfizetés
+- Vagy regisztrálunk az [Azure oldalán](https://azure.microsoft.com/hu-hu/)
+- vagy regisztrálunk a [Visual Studio Dev Essentials](https://visualstudio.microsoft.com/dev-essentials/)
+
+Ezzel egy éves ingyenes hozzáféréshez, és 200USD lehasználható kredithez jutunk
+
+### bejelentkezés és telepítés
+
+```
+D:\Repos\LenyugozoCsharp\bot.server> az login
+```
+
+után kapunk egy kódot és egy linket, a linket beírva a böngészőbe, majd a kódot a megfelelő helyre, egy Microsoft bejelentkezés után a parancssorunk is bejelentkezett az azure-ba.
+
+bejelentkezés után -ha több fiókunk is van- kiválaszthatjuk akár névvel is, hogy melyiket akarjuk most használni:
+```
+ac account list
+az account set --subscription "előfizetés neve"
+```
+
+még érdemes megadni, hogy melyik régió központjában szeretnénk dolgozni:
+
+```
+az configure --defaults location="North Europe"
+```
 
 
-
-###
