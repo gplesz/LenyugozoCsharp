@@ -247,6 +247,8 @@ D:\Repos\LenyugozoCsharp\bot.server> az login
 
 után kapunk egy kódot és egy linket, a linket beírva a böngészőbe, majd a kódot a megfelelő helyre, egy Microsoft bejelentkezés után a parancssorunk is bejelentkezett az azure-ba.
 
+#### Alapértelmezések
+
 bejelentkezés után -ha több fiókunk is van- kiválaszthatjuk akár névvel is, hogy melyiket akarjuk most használni:
 ```
 ac account list
@@ -259,4 +261,73 @@ még érdemes megadni, hogy melyik régió központjában szeretnénk dolgozni:
 az configure --defaults location="North Europe"
 ```
 
+#### Áttekintés:
+```
++--------------------------------------------------------------------------------------------+
+| Resource Group (erőforrás csoport)                                                         |
+|                                                                                            |
+|                                                                                            |
+|      +-------------------------------------------------------------------------+           |
+|      |                                                                         |           |
+|      |  AppService plan (milyen erőforrást rendel az alkalmazás mögé           |           |
+|      |  az Azure, és ezzel összefüggésben mennyit kell érte fizetni?)          |           |
+|      |                                                                         |           |
+|      |     +---------------------------------------------------------+         |           |
+|      |     |                                                         |         |           |
+|      |     |   WebApp (Ez a webkiszolgáló, ami az alkalmazásunkat    |         |           |
+|      |     |   futtatni fogja)                                       |         |           |
+|      |     |                                                         |         |           |
+|      |     |    +---------------------------------+                  |         |           |
+|      |     |    | App (bot.server)                |                  |         |           |
+|      |     |    |                                 |                  |         |           |
+|      |     |    |                                 |                  |         |           |
+|      |     |    |                                 |                  |         |           |
+|      |     |    |                                 |                  |         |           |
+|      |     |    +---------------------------------+                  |         |           |
+|      |     |                                                         |         |           |
+|      |     |                                                         |         |           |
+|      |     |                                                         |         |           |
+|      |     +---------------------------------------------------------+         |           |
+|      |                                                                         |           |
+|      +-------------------------------------------------------------------------+           |
+|                                                                                            |
+|                                                                                            |
++--------------------------------------------------------------------------------------------+
+```
+
+#### ResourceGroup létrehozása
+
+```
+az group create --name rgForLenyugozoCSharp
+```
+
+#### AppService plan létrehozása
+
+```
+az appservice plan create --resource-group rgForLenyugozoCSharp --name appsvcForLenyugozoCSharp --sku FREE
+```
+
+#### WebApp létrehozása
+ehhez telepíteni kell az azcli alá a webapp extension-t:
+
+```
+az extension add --name webapp
+```
+
+ha frissíteni akarnám:
+```
+az extension update --name webapp
+```
+(
+  Választható extension-ök listája:
+  ```
+  az extension list-available
+  ```
+)
+
+
+WebApp létrehozása
+```
+az webapp create --resource-group rgForLenyugozoCSharp --name appBotSvcForLenyugozoCSharp --plan appsvcForLenyugozoCSharp
+```
 
