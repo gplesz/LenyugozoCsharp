@@ -403,5 +403,15 @@ Ha nem tudom az azure-os **FIÓKHOZ** tartozó telepítő jelszót, akkor így b
 az webapp deployment user set --user-name <felhasználónév> --pasword <jelszó>
 ```
 
+Az első probléma:
+
+két projekt is van a könyvtárban, nem tudja, hogy melyiket kell buildelnie:
+```
+remote: Unable to determine which project file to build. D:\home\site\repository\bot.server\bot.server.csproj, D:\home\site\repository\rpi.server\rpi.server.csproj.y\rpi.server\rpi.server.csproj.
+remote: Error - Changes committed to remote repository but deployment to website failed.
+```
+
+Ehhez [innen](https://github.com/projectkudu/kudu/wiki/Customizing-deployments) kipróbáljuk, a .deployment file használatát.
+
 ## kérdések
 config-zip megoldás?
