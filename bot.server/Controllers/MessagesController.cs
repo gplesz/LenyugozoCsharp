@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Bot.Connector;
+using Microsoft.Extensions.Configuration;
 using RestSharp;
 
 namespace bot.server.Controllers
@@ -9,12 +11,23 @@ namespace bot.server.Controllers
     [Route("api/[controller]")]
     public class MessagesController : Controller
     {
+        public IConfiguration Configuration { get; }
+
+        public MessagesController(IConfiguration configuration)
+        {
+            this.Configuration = configuration 
+                ?? throw new ArgumentNullException(nameof(configuration));
+        }
+
+
+        [Authorize(Roles="Bot")]
         [HttpPost]
         public OkResult Post([FromBody]Activity activity)
         {
-            if (activity.Type==ActivityTypes.Message)
+            if (activity.Type == ActivityTypes.Message)
             {
-                var connector = new ConnectorClient(new Uri(activity.ServiceUrl));
+                var appCredentials = new MicrosoftAppCredentials(Configuration);
+                var connector = new ConnectorClient(new Uri(activity.ServiceUrl),appCredentials);
                 var userMessage = activity.Text;
                 Activity reply = null;
 
@@ -44,11 +57,11 @@ namespace bot.server.Controllers
 
                 //todo az rpi választ visszaküldeni
                 //ehhez értelmezni kell az rpi választ és betenni a válaszba
-                
+
                 connector.Conversations.ReplyToActivity(reply);
             }
             return Ok();
         }
-        
+
     }
 }
