@@ -413,5 +413,37 @@ remote: Error - Changes committed to remote repository but deployment to website
 
 Ehhez [innen](https://github.com/projectkudu/kudu/wiki/Customizing-deployments) kipróbáljuk, a .deployment file használatát.
 
-## kérdések
+#### Bot Channel Registration (Robotcsatorna regisztráció) 
+
+Telepítjük az azcli-be a botservice extension-t:
+
+```
+az extension add --name botservice
+```
+
+És a robot létrehozás így menne:
+```
+az bot create --resource-group rgForLenyugozoCSharp --kind webapp --name botchannelForLenyugozoCSharp
+```
+
+Ez sajnos nem jó, mert távolról a szükséges nevet és felhasználót nem tudom rögzíttetni az Azure-ral:
+
+```
+Unable to provision appid and password for supplied credentials
+```
+
+Marad a kézi hajtány, azure weboldalon hozzuk mindezt létre.
+
+#### Bejelentkezés beállítása a bot.server kódjában
+
+- a bot channel registration-ben meg kellett adni (egy új oldalon létrehoztunk egy újat) egy Microsoft alkalmazásjelszót. Ezt a jelszót kell kezelnünk a saját alkalmazásunkban, enélkül nem lesz kapcsolat.
+- a saját gépünkön a bot framework emulatort úgy kapcsoltuk a bot.server-hez, hogy beállítottuk a név+jelszó párt.
+
+így, tudjuk tesztelni az alkalmazásunk működését helyben, mielőtt az azurra telepítjük.
+
+
+
+
+
+## nyitott kérdések
 config-zip megoldás?
