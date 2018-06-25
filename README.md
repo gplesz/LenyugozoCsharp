@@ -239,6 +239,8 @@ Ehhez az [Azure CLI-t](https://docs.microsoft.com/en-us/cli/azure/?view=azure-cl
 
 Ezzel egy éves ingyenes hozzáféréshez, és 200USD lehasználható kredithez jutunk
 
+[Egy korábbi cikk](https://www.hanselman.com/blog/azWebappNewAzureCLIExtensionToCreateAndDeployANETCoreOrNodejsSiteInOneCommand.aspx) az `az webapp new` használatához, ez sajnos a webapp 0.2.x változatával már nem működik.
+
 ### bejelentkezés és telepítés
 
 ```
@@ -301,7 +303,7 @@ az configure --defaults location="North Europe"
 az group create --name rgForLenyugozoCSharp
 ```
 
-#### AppService plan létrehozása
+#### AppService plan létrehozása (előfizetési csomag)
 
 ```
 az appservice plan create --resource-group rgForLenyugozoCSharp --name appsvcForLenyugozoCSharp --sku FREE
@@ -325,9 +327,36 @@ az extension update --name webapp
   ```
 )
 
-
 WebApp létrehozása
 ```
 az webapp create --resource-group rgForLenyugozoCSharp --name appBotSvcForLenyugozoCSharp --plan appsvcForLenyugozoCSharp
 ```
 
+#### WebApp telepítése
+lekérdezzük a gites telepítő végpont címét:
+
+```powershell
+PS D:\Repos\LenyugozoCsharp\bot.server> az webapp deployment source config-local-git --name appBotSvcForLenyugozoCSharp --resource-group rgForLenyugozoCSharp
+```
+```json
+{
+  "url": "https://gplesz@appbotsvcforlenyugozocsharp.scm.azurewebsites.net/appBotSvcForLenyugozoCSharp.git"
+}
+
+```
+
+opcionális: 
+git kliens telepítés [chocolatey-vel](https://chocolatey.org/search?q=git)
+
+majd egy könyvtárba bemásolni a kódot, és:
+
+```
+git init
+git add .
+git commit -am "első változat"
+git remote add azure https://gplesz@appbotsvcforlenyugozocsharp.scm.azurewebsites.net/appBotSvcForLenyugozoCSharp.git
+```
+Ez utóbbival egy távoli végpontot hoztunk létre, aminek a segítségével felküldhetjük a forráskódot az azure-ra.
+
+## kérdések
+config-zip megoldás?
