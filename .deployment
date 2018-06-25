@@ -1,2 +1,2 @@
 [config]
-project = rpi.server/rpi.server.csproj
+project = bot.server/bot.server.csproj
