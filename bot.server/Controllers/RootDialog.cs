@@ -37,6 +37,9 @@ namespace bot.server.Controllers
                 case "Emlekezteto":
                     context.Call(new ReminderDialog(), OnDialogDone);
                     break;
+                case "Kepfelismero":
+                    context.Call(new ImageAnalyzerDialog(), OnDialogDone);
+                    break;
                 default:
                     context.PostAsync($"Hmm, erre meg nem vagyok felkeszitve, ezt valasztottad: {choice}")
                         .GetAwaiter()
