@@ -39,9 +39,11 @@ namespace bot.server.Controllers
                 .GetAwaiter()
                 .GetResult();
 
+            var reminder = new Reminder(seconds, text, context);
+            Reminders.Add(reminder);
+
             context.Done(true);
             return Task.CompletedTask;
-
         }
     }
 }
