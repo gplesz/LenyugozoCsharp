@@ -441,8 +441,42 @@ Marad a kézi hajtány, azure weboldalon hozzuk mindezt létre.
 
 így, tudjuk tesztelni az alkalmazásunk működését helyben, mielőtt az azurra telepítjük.
 
+#### Facebook messanger beállítás:
+
+A [Microsoft](https://docs.microsoft.com/en-us/azure/bot-service/bot-service-channel-connect-facebook?view=azure-bot-service-3.0) dokumentációja alapján
 
 
+
+```
+                                                                            ResourceGroup+AppServicePlan+WebApp
+                                                            Credentials
+INTERNET                      +--------------------------+  (appid+apppassword)-----------------------+       +------------------------+
+                              |                          |                  |        bot.server       | BUILD |  deployment git repo   |
+  +-----------+               |  Azure Cse^egőrobot      |  <------------+  |  Kitesszük az Internetre| <---+ |                        |
+  | Facebook  |  <---------+  |  csatornaszolgáltatás    |                  |  az azure webalkamazás  |       |                        |
+  | Messanger |               |  (Bot channel ser^ice)   |  +------------>  |  segítségé^el           |       |                        |
+  +-----------+  +--------->  |                          |                  |  (azure webapp)         |       |                        |
+                              |                          |                  |                         |       |                        |
+                              +---+--+-------------------+                  +-------------------------+       +------------------------+
+  +-----------+                   |  ^
+  | Skype     |                   |  |                                            +       ^                        ^
+  |           |  <----------------v  |                                            |       |                        |
+  +-----------+                      |                                            |       |                        | PUSH
+                 +------------------->                                            |       |                        |
+                                                                                  |       |                        |
+   +---+    +-----+    +--------+      +-------+        +-----+        +---+      |  +--+ |   +-----------+    +--------------+     +--+
+                                                                                  |       |                        |
+LOKÁLIS HÁLÓZAT                                                                   v       +                        +
+                                                                                                               GIT
+                                                                            +-------------------------+        +-----------------------+
+                                                                            |                         |        |                       |
+                                                                            | Raspberry webapi        |        |                       |
+                                                                            | lokális hálózat         |        |  Forráskód            |
+                                                                            | (192.168.0.102)         |        |                       |
+                                                                            |                         |        |                       |
+                                                                            |                         |        |                       |
+                                                                            +-------------------------+        +-----------------------+
+```
 
 
 ## nyitott kérdések
