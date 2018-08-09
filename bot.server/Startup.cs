@@ -14,6 +14,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Bot.Builder.Dialogs;
 using Autofac;
+using Microsoft.Bot.Builder.Dialogs.Internals;
+using Microsoft.Bot.Builder.Azure;
 
 namespace bot.server
 {
@@ -37,9 +39,22 @@ namespace bot.server
                 msAppPwd
             );
 
+            var store = new InMemoryDataStore();
+
             Conversation.UpdateContainer(builder =>
             {
+                builder.Register(c => store)
+                         .Keyed<IBotDataStore<BotData>>(AzureModule.Key_DataStore)
+                         .AsSelf()
+                         .SingleInstance();
 
+               builder.Register(c => new CachingBotDataStore(store,
+                          CachingBotDataStoreConsistencyPolicy
+                          .ETagBasedConsistency))
+                          .As<IBotDataStore<BotData>>()
+                          .AsSelf()
+                          .InstancePerLifetimeScope();
+                          
                 builder.Register(c =>
                     new MicrosoftAppCredentials(msAppIdKey, msAppPwd))
                         .SingleInstance();
