@@ -41,6 +41,7 @@ namespace bot.server
                                             //amit ebben a könyvtárban írok, az megjelenik az
                                             //azure AppService napló streamjében
                                             .WriteTo.File(@"D:\home\LogFiles\http\RawLogs\log.txt")
+                                            .WriteTo.File(@"log.txt")
                                             .CreateLogger();
 
             var msAppIdKey = Configuration.GetSection(MicrosoftAppCredentials.MicrosoftAppIdKey)?.Value;
