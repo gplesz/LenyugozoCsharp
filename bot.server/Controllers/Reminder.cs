@@ -23,7 +23,8 @@ namespace bot.server.Controllers
             timer.AutoReset = false;
             timer.Start();
             //rpi led be
-            var client = new RestClient("http://10.168.1.148:5000/api");
+            //var client = new RestClient("http://10.168.1.148:5000/api");
+            var client = new RestClient("http://fc2427bf.ngrok.io/api");
             var request = new RestRequest("Led", Method.GET);
             request.AddParameter("id", 1);
             request.AddParameter("isOn", true);
