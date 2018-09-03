@@ -481,3 +481,14 @@ LOKÁLIS HÁLÓZAT                                                              
 
 ## nyitott kérdések
 config-zip megoldás?
+
+## Feladatok (2018.09.03)
+- [X] ki kell deríteni, hogy miért nem működik a csevegőrobotunk
+  - kivételek képződése esetén (mivel async/await környezetben vagyunk, így több szálú végrehajtás történik) a kivételek nem kerülnek a kivételkezelés normális menetére
+  - a hiba oka egészen triviális: letelt az egy hetes próba előfizetésünk
+  - [exception drive development](https://blog.codinghorror.com/exception-driven-development/)
+  - ha hibába futhatunk, érdemes gondoskodni, hogy legyen valamilyen válaszunk
+- [ ] kitesszük a robotot az Internetre, és megnézzük, hogy működik-e?
+- [ ] lokális Raspberry PI elérése Internetről (ngrok)
+- [ ] hogyan tudunk információhoz jutni, ha már telepítettük a robotot az azure-ra
+

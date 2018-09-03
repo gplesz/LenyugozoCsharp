@@ -29,10 +29,9 @@ namespace bot.server.Controllers
                 using (var stream = GetImageStream(image))
                 {
                     var result = visionAPiClient.AnalyzeImageAsync(stream,
-                     new string[] { VisualFeature.Description.ToString() })
-                     .GetAwaiter()
-                     .GetResult();
-
+                    new string[] { VisualFeature.Description.ToString() })
+                    .GetAwaiter()
+                    .GetResult();
                     return result.Description.Captions.FirstOrDefault().Text;
                 }
             }

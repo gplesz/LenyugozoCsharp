@@ -21,10 +21,17 @@ namespace bot.server.Controllers
 
             if (ImageAnalyzer.IsImageUpladed(message))
             {
-                var caption = ImageAnalyzer.GetCaption(message, "0902cbc4bf524361a961e16495e36fac", "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0");
-
-                context.PostAsync(message.CreateReply(caption)).GetAwaiter().GetResult();
-
+                //Ha elhagyjuk az alkalmazás határait, érdemes 
+                //vigyázni, nehogy válasz nélkül hagyjunk egy kérést
+                try
+                {
+                    var caption = ImageAnalyzer.GetCaption(message, "a4a771ce05c475c8fac21308d279136", "https://northeurope.api.cognitive.microsoft.com/vision/v1.0");
+                    context.PostAsync(message.CreateReply(caption)).GetAwaiter().GetResult();
+                }
+                catch (System.Exception)
+                {
+                    context.PostAsync(message.CreateReply("Hiba történt, értesültünk róla, az elhárítás folyamatban")).GetAwaiter().GetResult();
+                }
                 context.Done(true);
             }
             else
