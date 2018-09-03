@@ -35,9 +35,9 @@ namespace bot.server
         {
             Serilog.Log.Logger = new LoggerConfiguration()
                                             .MinimumLevel.Debug()
-                                            .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-                                            .MinimumLevel.Override("System", LogEventLevel.Warning)
-                                            .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Warning)
+                                            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                                            .MinimumLevel.Override("System", LogEventLevel.Information)
+                                            .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
                                             //amit ebben a könyvtárban írok, az megjelenik az
                                             //azure AppService napló streamjében
                                             .WriteTo.File(@"D:\home\LogFiles\http\RawLogs\log.txt")
