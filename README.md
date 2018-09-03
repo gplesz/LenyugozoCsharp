@@ -491,4 +491,8 @@ config-zip megoldás?
 - [ ] kitesszük a robotot az Internetre, és megnézzük, hogy működik-e?
 - [ ] lokális Raspberry PI elérése Internetről (ngrok)
 - [ ] hogyan tudunk információhoz jutni, ha már telepítettük a robotot az azure-ra
+  - ha nem működik, akkor nincs naplónk, ezért ezt be kell építeni: [Serilog](https://serilog.net/)
+  - két parancs: 
+    - dotnet add package Serilog
+    - dotnet add package Serilog.Sinks.File
 

@@ -16,6 +16,8 @@ using Microsoft.Bot.Builder.Dialogs;
 using Autofac;
 using Microsoft.Bot.Builder.Dialogs.Internals;
 using Microsoft.Bot.Builder.Azure;
+using Serilog;
+using Serilog.Events;
 
 namespace bot.server
 {
@@ -31,6 +33,16 @@ namespace bot.server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            Serilog.Log.Logger = new LoggerConfiguration()
+                                            .MinimumLevel.Debug()
+                                            .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                                            .MinimumLevel.Override("System", LogEventLevel.Warning)
+                                            .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Warning)
+                                            //amit ebben a könyvtárban írok, az megjelenik az
+                                            //azure AppService napló streamjében
+                                            .WriteTo.File(@"D:\home\LogFiles\http\RawLogs\log.txt")
+                                            .CreateLogger();
+
             var msAppIdKey = Configuration.GetSection(MicrosoftAppCredentials.MicrosoftAppIdKey)?.Value;
             var msAppPwd = Configuration.GetSection(MicrosoftAppCredentials.MicrosoftAppPasswordKey)?.Value;
 

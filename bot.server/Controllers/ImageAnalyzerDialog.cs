@@ -25,7 +25,7 @@ namespace bot.server.Controllers
                 //vigyázni, nehogy válasz nélkül hagyjunk egy kérést
                 try
                 {
-                    var caption = ImageAnalyzer.GetCaption(message, "a4a771ce05c475c8fac21308d279136", "https://northeurope.api.cognitive.microsoft.com/vision/v1.0");
+                    var caption = ImageAnalyzer.GetCaption(message, "6a4a771ce05c475c8fac21308d279136", "https://northeurope.api.cognitive.microsoft.com/vision/v1.0");
                     context.PostAsync(message.CreateReply(caption)).GetAwaiter().GetResult();
                 }
                 catch (System.Exception)

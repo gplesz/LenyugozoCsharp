@@ -15,34 +15,49 @@ namespace bot.server
     {
         public static void Main(string[] args)
         {
-            //Ez a nem kezelt kivételeket adja át,
-            //azonban amit keresünk, az egy másik thread kivételkezelésbe nem került kivétele,
-            //így nem számít nem kezelt kivételnek, ezért MOST nem segít
-            AppDomain.CurrentDomain.UnhandledException+=LogUnhandledException;
 
-            //ez a megoldás valamennyi multi-thread folyxamat kivételeit naplózza
-            //figyelem, ez az esemény akkor is kiváltódik, ha a kivétel kezelt kivétel
-            AppDomain.CurrentDomain.FirstChanceException+=LogFirstChanceException;
-            
-            CreateWebHostBuilder(args).Build().Run();
+            try
+            {
+                //Ez a nem kezelt kivételeket adja át,
+                //azonban amit keresünk, az egy másik thread kivételkezelésbe nem került kivétele,
+                //így nem számít nem kezelt kivételnek, ezért MOST nem segít
+                AppDomain.CurrentDomain.UnhandledException+=LogUnhandledException;
+
+                //ez a megoldás valamennyi multi-thread folyxamat kivételeit naplózza
+                //figyelem, ez az esemény akkor is kiváltódik, ha a kivétel kezelt kivétel
+                AppDomain.CurrentDomain.FirstChanceException+=LogFirstChanceException;
+                //Serilog.Log.Information("app started"); ez nem látszik úgysem, mert a következő
+                //hívás konfigurálja a naplót
+                CreateWebHostBuilder(args).Build().Run();
+            }
+            catch (System.Exception ex)
+            {
+                Serilog.Log.Fatal(ex, "host terminated unexpectedly");
+            }
+            finally
+            {
+                Serilog.Log.Information("app stopped");
+                Serilog.Log.CloseAndFlush();
+            }
         }
 
         private static void LogFirstChanceException(object sender, FirstChanceExceptionEventArgs e)
         {
-            System.Console.WriteLine($"HIBA TÖRTÉNT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            System.Console.WriteLine(e.Exception.ToString());
-            System.Console.WriteLine("HIBA TÖRTÉNT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            Serilog.Log.Error(e.Exception, "FirstChanceException raised");
         }
 
         private static void LogUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            System.Console.WriteLine($"HIBA TÖRTÉNT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! (Isterminating:{e.IsTerminating})");
-            System.Console.WriteLine(((Exception)e.ExceptionObject).ToString());
-            System.Console.WriteLine("HIBA TÖRTÉNT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            Serilog.Log.Error((Exception)e.ExceptionObject, "Unhandled exception");
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                //Ahhoz, hogy az ASP.NET alkalmazásunk belsó naplójához is hozzáférjünk
+                //kell ez a csomag: dotnet add package Serilog.AspNetCore
+                //és ez a beállítás
+                //.ConfigureLogging(logging => logging.AddSerilog())
+                ;
     }
 }
