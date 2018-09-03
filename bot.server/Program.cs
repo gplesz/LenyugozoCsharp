@@ -8,6 +8,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace bot.server
 {
@@ -26,9 +27,14 @@ namespace bot.server
                 //ez a megoldás valamennyi multi-thread folyxamat kivételeit naplózza
                 //figyelem, ez az esemény akkor is kiváltódik, ha a kivétel kezelt kivétel
                 AppDomain.CurrentDomain.FirstChanceException+=LogFirstChanceException;
-                //Serilog.Log.Information("app started"); ez nem látszik úgysem, mert a következő
+                
                 //hívás konfigurálja a naplót
-                CreateWebHostBuilder(args).Build().Run();
+                var host = CreateWebHostBuilder(args).Build();
+                
+                //innentől kezdve él a naplózásunk
+                Serilog.Log.Information("app started"); 
+
+                host.Run();
             }
             catch (System.Exception ex)
             {
@@ -57,7 +63,7 @@ namespace bot.server
                 //Ahhoz, hogy az ASP.NET alkalmazásunk belsó naplójához is hozzáférjünk
                 //kell ez a csomag: dotnet add package Serilog.AspNetCore
                 //és ez a beállítás
-                //.ConfigureLogging(logging => logging.AddSerilog())
+                .UseSerilog()
                 ;
     }
 }
