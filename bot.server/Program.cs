@@ -60,7 +60,7 @@ namespace bot.server
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                //Ahhoz, hogy az ASP.NET alkalmazásunk belsó naplójához is hozzáférjünk
+                //Ahhoz, hogy az ASP.NET alkalmazásunk belső naplójához is hozzáférjünk
                 //kell ez a csomag: dotnet add package Serilog.AspNetCore
                 //és ez a beállítás
                 .UseSerilog()
