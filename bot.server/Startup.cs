@@ -107,7 +107,7 @@ namespace bot.server
 
             app.UseAuthentication();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
