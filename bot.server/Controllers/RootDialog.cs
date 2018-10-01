@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
+using Serilog;
 
 namespace bot.server.Controllers
 {
@@ -10,6 +11,7 @@ namespace bot.server.Controllers
     {
         public Task StartAsync(IDialogContext context)
         {
+            Log.Logger.Debug("RootDialog.StartAsync");
             context.Wait(OnMessageRecieved);
 
             return Task.CompletedTask;
@@ -17,6 +19,8 @@ namespace bot.server.Controllers
 
         private Task OnMessageRecieved(IDialogContext context, IAwaitable<object> result)
         {
+            Log.Logger.Debug("RootDialog.OnMessageRecieved started");
+
             var message = (Activity)result.GetAwaiter().GetResult();
 
             context.PostAsync(message.CreateReply($"Ezt üzented:{ message.Text}"));
@@ -30,6 +34,8 @@ namespace bot.server.Controllers
 
         private Task OnChoiceRecieved(IDialogContext context, IAwaitable<string> result)
         {
+            Log.Logger.Debug("RootDialog.OnChoiceRecieved started");
+
             var choice = result.GetAwaiter().GetResult();
 
             switch (choice)
@@ -52,6 +58,7 @@ namespace bot.server.Controllers
 
         private Task OnDialogDone(IDialogContext context, IAwaitable<object> result)
         {
+            Log.Logger.Debug("RootDialog.OnDialogDone started");
 
             return Task.CompletedTask;
         }
