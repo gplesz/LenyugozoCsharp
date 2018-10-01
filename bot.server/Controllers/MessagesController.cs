@@ -7,23 +7,24 @@ using Microsoft.Bot.Connector;
 using Microsoft.Extensions.Configuration;
 using RestSharp;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace bot.server.Controllers
 {
     [Route("api/[controller]")]
     public class MessagesController : Controller
     {
-        private readonly ICredentialProvider credentialProvider;
+        private readonly ILogger<MessagesController> logger;
 
         public IConfiguration Configuration { get; }
 
-        public MessagesController(IConfiguration configuration, ICredentialProvider credentialProvider)
+        public MessagesController(IConfiguration configuration, ILogger<MessagesController> logger)
         {
             this.Configuration = configuration 
                 ?? throw new ArgumentNullException(nameof(configuration));
 
-            this.credentialProvider = credentialProvider 
-                ?? throw new ArgumentNullException(nameof(credentialProvider));
+            this.logger = logger 
+                ?? throw new ArgumentNullException(nameof(logger));
         }
 
 
@@ -31,35 +32,47 @@ namespace bot.server.Controllers
         [HttpPost]
         public OkResult Post([FromBody]Activity activity)
         {
-            if (activity.Type == ActivityTypes.ConversationUpdate)
+            try
             {
-                // Handle conversation state changes, like members being added and removed
-                // Use Activity.MembersAdded and Activity.MembersRemoved and Activity.Action for info
-                // Not available in all channels
-
-                var msAppIdKey = Configuration.GetSection(MicrosoftAppCredentials.MicrosoftAppIdKey)?.Value;
-                var msAppPwd = Configuration.GetSection(MicrosoftAppCredentials.MicrosoftAppPasswordKey)?.Value;
-
-                // Note: Add introduction here:
-                IConversationUpdateActivity update = activity;
-                var client = new ConnectorClient(new Uri(activity.ServiceUrl), new MicrosoftAppCredentials(msAppIdKey, msAppPwd));
-                if (update.MembersAdded != null && update.MembersAdded.Any())
+                logger.LogDebug("MessagesController.Post started");
+                if (activity.Type == ActivityTypes.ConversationUpdate)
                 {
-                    foreach (var newMember in update.MembersAdded)
+                    // Handle conversation state changes, like members being added and removed
+                    // Use Activity.MembersAdded and Activity.MembersRemoved and Activity.Action for info
+                    // Not available in all channels
+
+                    var msAppIdKey = Configuration.GetSection(MicrosoftAppCredentials.MicrosoftAppIdKey)?.Value;
+                    var msAppPwd = Configuration.GetSection(MicrosoftAppCredentials.MicrosoftAppPasswordKey)?.Value;
+
+                    // Note: Add introduction here:
+                    IConversationUpdateActivity update = activity;
+                    var client = new ConnectorClient(new Uri(activity.ServiceUrl), new MicrosoftAppCredentials(msAppIdKey, msAppPwd));
+                    if (update.MembersAdded != null && update.MembersAdded.Any())
                     {
-                        if (newMember.Id != activity.Recipient.Id)
+                        foreach (var newMember in update.MembersAdded)
                         {
-                            var reply = activity.CreateReply();
-                            reply.Text = $"Welcome {newMember.Name}!";
-                            client.Conversations.ReplyToActivityAsync(reply);
+                            if (newMember.Id != activity.Recipient.Id)
+                            {
+                                var reply = activity.CreateReply();
+                                reply.Text = $"Welcome {newMember.Name}!";
+                                client.Conversations.ReplyToActivityAsync(reply);
+                            }
                         }
                     }
                 }
-            }
 
-            if (activity.Type == ActivityTypes.Message)
+                if (activity.Type == ActivityTypes.Message)
+                {
+                    Conversation.SendAsync(activity, () => new RootDialog());
+                }
+            }
+            catch (Exception ex)
             {
-                Conversation.SendAsync(activity, () => new RootDialog());
+                logger.LogInformation(ex, "Hiba történt");
+            }
+            finally
+            {
+                logger.LogDebug("MessagesController.Post ended");
             }
             return Ok();
         }

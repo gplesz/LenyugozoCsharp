@@ -22,11 +22,11 @@ namespace bot.server
                 //Ez a nem kezelt kivételeket adja át,
                 //azonban amit keresünk, az egy másik thread kivételkezelésbe nem került kivétele,
                 //így nem számít nem kezelt kivételnek, ezért MOST nem segít
-                AppDomain.CurrentDomain.UnhandledException+=LogUnhandledException;
+                //AppDomain.CurrentDomain.UnhandledException+=LogUnhandledException;
 
                 //ez a megoldás valamennyi multi-thread folyxamat kivételeit naplózza
                 //figyelem, ez az esemény akkor is kiváltódik, ha a kivétel kezelt kivétel
-                AppDomain.CurrentDomain.FirstChanceException+=LogFirstChanceException;
+                //AppDomain.CurrentDomain.FirstChanceException+=LogFirstChanceException;
                 
                 //hívás konfigurálja a naplót
                 var host = CreateWebHostBuilder(args).Build();
@@ -60,7 +60,7 @@ namespace bot.server
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                //Ahhoz, hogy az ASP.NET alkalmazásunk belsó naplójához is hozzáférjünk
+                //Ahhoz, hogy az ASP.NET alkalmazásunk belső naplójához is hozzáférjünk
                 //kell ez a csomag: dotnet add package Serilog.AspNetCore
                 //és ez a beállítás
                 .UseSerilog()
