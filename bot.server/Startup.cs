@@ -40,7 +40,14 @@ namespace bot.server
                                             .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
                                             //amit ebben a könyvtárban írok, az megjelenik az
                                             //azure AppService napló streamjében
-                                            .WriteTo.File(@"D:\home\LogFiles\http\RawLogs\log.txt")
+                                            //ez már nem működik, helyette: https://github.com/serilog/serilog-aspnetcore
+                                            //.WriteTo.File(@"D:\home\LogFiles\http\RawLogs\log.txt")
+                                            .WriteTo.File(
+                                                @"D:\home\LogFiles\Application\myapp.txt",
+                                                fileSizeLimitBytes: 1_000_000,
+                                                rollOnFileSizeLimit: true,
+                                                shared: true,
+                                                flushToDiskInterval: TimeSpan.FromSeconds(1))
                                             .WriteTo.File(@"log.txt")
                                             .CreateLogger();
 
@@ -107,7 +114,7 @@ namespace bot.server
 
             app.UseAuthentication();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

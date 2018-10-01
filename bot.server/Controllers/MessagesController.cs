@@ -25,6 +25,7 @@ namespace bot.server.Controllers
         [HttpPost]
         public OkResult Post([FromBody]Activity activity)
         {
+            
             if (activity.Type == ActivityTypes.Message)
             {
                 Conversation.SendAsync(activity, () => new RootDialog());
